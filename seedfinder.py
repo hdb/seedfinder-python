@@ -39,13 +39,38 @@ class SeedFinder:
 
         return self.get(url)
 
-    def parents(self, strain_id, breeder_id='Unknown_or_Legendary'):
+    def parents(self, strain_id, breeder_id='Unknown_or_Legendary', generations=1):
         strain_info = self.strain_info(strain_id, breeder_id, show_parents=True)
-        return strain_info['parents']
+        parents = strain_info['parents']
+        parents['child'] = {
+            'name': strain_info['name'],
+            'id': strain_id,
+            'brname': strain_info['brinfo']['name'],
+            'brid': breeder_id
+        }
+        elders = []
+        if generations > 1:
+            for k,v in parents['strains'].items():
+                elders = elders + self.parents(v['id'],v['brid'],generations=generations-1)
 
-    def hybrids(self, strain_id, breeder_id='Unknown_or_Legendary'):
+        return [parents] + elders
+
+    def hybrids(self, strain_id, breeder_id='Unknown_or_Legendary', generations=1):
         strain_info = self.strain_info(strain_id, breeder_id, show_hybrids=True)
-        return strain_info['hybrids']
+        hybrids = strain_info['hybrids']
+        if hybrids == False:
+            return []
+        progeny = []
+        if generations > 1:
+            for k,v in hybrids.items():
+                progeny = progeny + self.hybrids(v['id'],v['brid'],generations=generations-1)
+        hybrids['parent'] = {
+            'name': strain_info['name'],
+            'id': strain_id,
+            'brname': strain_info['brinfo']['name'],
+            'brid': breeder_id
+        }
+        return [hybrids] + progeny
 
     def breeder_info(self, breeder_id, show_strains=False):
         strains = '1' if show_strains else '0'
