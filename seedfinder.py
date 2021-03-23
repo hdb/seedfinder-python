@@ -83,9 +83,9 @@ class SeedFinder:
         }
         return [hybrids] + progeny
 
-    def breederInfo(self, breeder_id, show_strains=False):
+    def breederInfo(self, breeder_id, show_strains=True):
         strains = '1' if show_strains else '0'
-        url = '{}?br={}&strains={}'.format(self.breeders_api, breeder_id)
+        url = '{}?br={}&strains={}'.format(self.breeders_api, breeder_id, strains)
         return self.get(url)
 
     def thread(self, forum, thread):
