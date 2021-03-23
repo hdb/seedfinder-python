@@ -30,7 +30,7 @@ class SeedFinder:
             results['count'] = matches
         return results
 
-    def strain_info(self, strain_id, breeder_id='Unknown_or_Legendary', lang='en', show_parents=False, show_hybrids=False, show_med_info=False, show_pics=False, comments=0, forums=[], show_reviews=False, show_tasting=False, hide_taste= False, hide_smell=False, hide_effect=False):
+    def strainInfo(self, strain_id, breeder_id='Unknown_or_Legendary', lang='en', show_parents=False, show_hybrids=False, show_med_info=False, show_pics=False, comments=0, forums=[], show_reviews=False, show_tasting=False, hide_taste= False, hide_smell=False, hide_effect=False):
         parents = '1' if show_parents else '0'
         hybrids = '1' if show_hybrids else '0'
         med_info = '1' if show_med_info else '0'
@@ -50,7 +50,7 @@ class SeedFinder:
         return self.get(url)
 
     def parents(self, strain_id, breeder_id='Unknown_or_Legendary', generations=1):
-        strain_info = self.strain_info(strain_id, breeder_id, show_parents=True)
+        strain_info = self.strainInfo(strain_id, breeder_id, show_parents=True)
         parents = strain_info['parents']
         parents['child'] = {
             'name': strain_info['name'],
@@ -66,7 +66,7 @@ class SeedFinder:
         return [parents] + elders
 
     def hybrids(self, strain_id, breeder_id='Unknown_or_Legendary', generations=1):
-        strain_info = self.strain_info(strain_id, breeder_id, show_hybrids=True)
+        strain_info = self.strainInfo(strain_id, breeder_id, show_hybrids=True)
         hybrids = strain_info['hybrids']
         if hybrids == False:
             return []
@@ -82,7 +82,7 @@ class SeedFinder:
         }
         return [hybrids] + progeny
 
-    def breeder_info(self, breeder_id, show_strains=False):
+    def breederInfo(self, breeder_id, show_strains=False):
         strains = '1' if show_strains else '0'
         url = '{}?br={}&strains={}'.format(self.breeders_api, breeder_id)
         return self.get(url)
