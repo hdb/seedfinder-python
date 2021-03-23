@@ -2,6 +2,11 @@
 
 Simple Python wrapper for [seedfinder.eu](https://en.seedfinder.eu/)'s API.
 
+## Install
+
+`pip install seedfinder`
+
+
 ## Setup
 
 You will need to [create an account](https://en.seedfinder.eu/register.html) at seedfinder.eu and [verify a domain or IP](https://en.seedfinder.eu/userarea/action/jsonapi.html) in order to access the API.
