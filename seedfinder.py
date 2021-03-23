@@ -4,7 +4,7 @@ import requests
 
 class SeedFinder:
 
-    def __init__(self, api_key):
+    def __init__(self, api_key=None):
 
         base_url = 'https://en.seedfinder.eu/api/json/'
 
@@ -13,7 +13,7 @@ class SeedFinder:
         self.strain_api = base_url + 'strain.json'
         self.thread_api = base_url + 'threadfinder.json'
 
-        self.api_auth = '&ac={}'.format(api_key)
+        self.api_auth = '&ac={}'.format(api_key) if api_key is not None else ''
 
     def searchStrain(self, strain):
         strain_str = strain.replace('#','%23')
