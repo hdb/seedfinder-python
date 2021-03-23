@@ -1,4 +1,4 @@
-# seedfinder
+# seedfinder-python
 
 Simple Python wrapper for [seedfinder.eu](https://en.seedfinder.eu/)'s API.
 

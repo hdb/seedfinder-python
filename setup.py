@@ -13,6 +13,7 @@ setup(
     long_description_content_type="text/markdown",
     author = 'Hudson Bailey',
     author_email = 'hudsondiggsbailey@gmail.com',
+    url="https://github.com/hdb/seedfinder-python",
     packages = ['seedfinder'],
     install_requires = ['requests'],
     license='MIT',
