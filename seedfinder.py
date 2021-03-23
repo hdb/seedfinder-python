@@ -15,10 +15,20 @@ class SeedFinder:
 
         self.api_auth = '&ac={}'.format(api_key) if api_key is not None else ''
 
-    def searchStrain(self, strain):
+    def searchStrain(self, strain, exact=False):
         strain_str = strain.replace('#','%23')
         url = '{}?q={}'.format(self.search_api, strain_str)
-        return self.get(url)
+        results = self.get(url)
+        if exact and not results['error'] and results['count']>0:
+            results['strains'] = {k:v for k,v in results['strains'].items() if v['name'] == strain or v['id'] == strain}
+            matches = len(results['strains'])
+            if matches == 0:
+                results['info'] = 'Sorry, nothing was found for your search.'
+                del results['strains']
+            else:
+                results['info'] = results['info'].replace(str(results['count']), str(matches))
+            results['count'] = matches
+        return results
 
     def strain_info(self, strain_id, breeder_id='Unknown_or_Legendary', lang='en', show_parents=False, show_hybrids=False, show_med_info=False, show_pics=False, comments=0, forums=[], show_reviews=False, show_tasting=False, hide_taste= False, hide_smell=False, hide_effect=False):
         parents = '1' if show_parents else '0'
