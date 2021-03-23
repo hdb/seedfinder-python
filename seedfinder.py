@@ -61,7 +61,8 @@ class SeedFinder:
         elders = []
         if generations > 1:
             for k,v in parents['strains'].items():
-                elders = elders + self.parents(v['id'],v['brid'],generations=generations-1)
+                if v['id'] != 'Indica' and v['id'] != 'Sativa' and v['brid'] != 'Original_Strains':
+                    elders = elders + self.parents(v['id'],v['brid'],generations=generations-1)
 
         return [parents] + elders
 
