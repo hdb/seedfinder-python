@@ -1,4 +1,4 @@
-# SeedFinder
+# seedfinder
 
 Simple Python wrapper for [seedfinder.eu](https://en.seedfinder.eu/)'s API.
 
@@ -8,9 +8,7 @@ You will need to [create an account](https://en.seedfinder.eu/register.html) at 
 
 To authorize requests, you need to either make a request from a verfied address or initialize the SeedFinder object with your API token.
 
-Note: seedfinder.eu requires registering an address *even if you are only accessing the API by token*.
-
-[seedfinder.eu's API documentation](https://en.seedfinder.eu/api/json)
+Note: seedfinder.eu requires that you register an address *even if you are only accessing the API by token*.
 
 ## Usage
 
@@ -22,7 +20,7 @@ from seedfinder import SeedFinder
 sf = SeedFinder('YOUR API KEY')
 ```
 
-Search for a strain
+Search for a strain by word
 
 ```python
 sf.searchStrain('fuel')
@@ -45,13 +43,13 @@ sf.strainInfo(first_result['id'], first_result['brid'])
 Get three generations of parent strains
 
 ```python
-sf.parents(strain_id='Girl_Scout_Cookies', breeder_id='Clone_Only_Strains', generations=3)
+sf.parents('Girl_Scout_Cookies', breeder_id='Clone_Only_Strains', generations=3)
 ```
 
 Get direct (first generation) hybrids
 
 ```python
-sf.hybrids(strain_id='Puta_Breath',breeder_id='ThugPug_Genetics')
+sf.hybrids('Puta_Breath', breeder_id='ThugPug_Genetics')
 ```
 
 List all of a breeder's strains
@@ -59,3 +57,7 @@ List all of a breeder's strains
 ```python
 sf.breederInfo('Exotic_Genetix')
 ```
+
+## Documentation
+
+See seedfinder.eu's [API documentation](https://en.seedfinder.eu/api/json)
