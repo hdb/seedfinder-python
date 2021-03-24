@@ -25,19 +25,19 @@ from seedfinder import SeedFinder
 sf = SeedFinder('YOUR API KEY')
 ```
 
-Search for a strain by word
+Search for strains
 
 ```python
 sf.searchStrain('fuel')
 ```
 
-Exact search for a strain
+Search for a strain using exact query
 
 ```python
 sf.searchStrain('Alien Kush', exact=True)
 ```
 
-Get detailed strain information from the first search result
+Search by word and get detailed strain information from the first result
 
 ```python
 search_results = sf.searchStrain('purp')
@@ -63,6 +63,6 @@ List all of a breeder's strains
 sf.breederInfo('Exotic_Genetix')
 ```
 
-## Documentation
+## API Documentation
 
 See seedfinder.eu's [API documentation](https://en.seedfinder.eu/api/json)
