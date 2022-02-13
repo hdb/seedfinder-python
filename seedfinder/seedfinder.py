@@ -18,7 +18,7 @@ class SeedFinder:
     def searchStrain(self, strain, exact=False):
         strain_str = strain.replace('#','%23')
         url = '{}?q={}'.format(self.search_api, strain_str)
-        results = self.get(url)
+        results = self._get(url)
         if exact and not results['error'] and results['count']>0:
             results['strains'] = {k:v for k,v in results['strains'].items() if v['name'] == strain or v['id'] == strain}
             matches = len(results['strains'])
@@ -47,7 +47,7 @@ class SeedFinder:
             self.strain_api, breeder_id, strain_id, lang, parents, hybrids, med_info, pics, comments, lang, forums_str, reviews, tasting_str
         )
 
-        return self.get(url)
+        return self._get(url)
 
     def parents(self, strain_id, breeder_id='Unknown_or_Legendary', generations=1):
         strain_info = self.strainInfo(strain_id, breeder_id, show_parents=True)
@@ -86,14 +86,14 @@ class SeedFinder:
     def breederInfo(self, breeder_id, show_strains=True):
         strains = '1' if show_strains else '0'
         url = '{}?br={}&strains={}'.format(self.breeders_api, breeder_id, strains)
-        return self.get(url)
+        return self._get(url)
 
     def thread(self, forum, thread):
         thread = str(thread)
         url = '{}?forum={}&thread={}'.format(self.thread_api, forum, thread)
-        return self.get(url)
+        return self._get(url)
 
-    def get(self, url):
+    def _get(self, url):
         url += self.api_auth
         response = requests.get(url)
         data = response.json()
