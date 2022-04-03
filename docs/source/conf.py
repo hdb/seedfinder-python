@@ -20,7 +20,7 @@ sys.path.insert(0, os.path.abspath('../..'))
 # -- Project information -----------------------------------------------------
 
 project = 'seedfinder-python'
-copyright = '2022, Hudson Bailey'
+copyright = '2022'
 author = 'Hudson Bailey'
 
 # The full version, including alpha/beta/rc tags
@@ -48,8 +48,17 @@ exclude_patterns = []
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = 'groundwork'
+html_theme = 'sphinx_rtd_theme'
 
+html_theme_options = {
+    'logo_only': False,
+    'display_version': True,
+    'prev_next_buttons_location': 'bottom',
+    # Toc options
+    'collapse_navigation': True,
+    'sticky_navigation': True,
+    'navigation_depth': 3,
+}
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
