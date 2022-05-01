@@ -1,6 +1,6 @@
 # seedfinder-python
 
-Simple Python wrapper for [seedfinder.eu](https://en.seedfinder.eu/)'s API.
+Simple Python wrapper and CLI for [seedfinder.eu](https://en.seedfinder.eu/)'s API.
 
 ## Install
 
@@ -17,7 +17,22 @@ Note: seedfinder.eu requires that you register an address *even if you are only 
 
 ## Usage & Documentation
 
-See [documentation](https://seedfinder-python.readthedocs.io/en/latest/).
+seedfinder-python is usable as both a simple search CLI
+
+```bash
+seedfinder --limit 10 --not-interactive "granddaddy"
+```
+
+and as a library
+
+```python
+from seedfinder import SeedFinder
+
+sf = SeedFinder('YOUR API KEY')
+sf.searchStrain('Alien Kush', exact=True)
+```
+
+See [documentation](https://seedfinder-python.readthedocs.io/en/latest/) for usage details.
 
 ## API Reference
 
