@@ -3,6 +3,7 @@
 import requests
 
 class SeedFinder:
+    """API client object to authorize and perform seedfinder.eu query requests"""
 
     def __init__(self, api_key=None):
 
@@ -16,6 +17,11 @@ class SeedFinder:
         self.api_auth = '&ac={}'.format(api_key) if api_key is not None else ''
 
     def searchStrain(self, strain, exact=False):
+        """Search for strain names and return basic strain information. Use exact flag to only return exact matches.
+        
+        https://en.seedfinder.eu/api/json/search/
+        """
+
         strain_str = strain.replace('#','%23')
         url = '{}?q={}'.format(self.search_api, strain_str)
         results = self._get(url)
@@ -31,6 +37,11 @@ class SeedFinder:
         return results
 
     def strainInfo(self, strain_id, breeder_id='Unknown_or_Legendary', lang='en', show_parents=False, show_hybrids=False, show_med_info=False, show_pics=False, comments=0, forums=[], show_reviews=False, show_tasting=False, hide_taste= False, hide_smell=False, hide_effect=False):
+        """Get detailed information for a given strain. Requires seedfinder strain id and the strain's breeder id.
+        
+        https://en.seedfinder.eu/api/json/strain/
+        """
+
         parents = '1' if show_parents else '0'
         hybrids = '1' if show_hybrids else '0'
         med_info = '1' if show_med_info else '0'
@@ -50,6 +61,11 @@ class SeedFinder:
         return self._get(url)
 
     def parents(self, strain_id, breeder_id='Unknown_or_Legendary', generations=1):
+        """Get parent strains of a given strain. Requires seedfinder strain id and the strain's breeder id.
+        
+        https://en.seedfinder.eu/api/json/strain/
+        """
+
         strain_info = self.strainInfo(strain_id, breeder_id, show_parents=True)
         parents = strain_info['parents']
         parents['child'] = {
@@ -67,6 +83,11 @@ class SeedFinder:
         return [parents] + elders
 
     def hybrids(self, strain_id, breeder_id='Unknown_or_Legendary', generations=1):
+        """Get hybrids of a given strain. Requires seedfinder strain id and the strain's breeder id.
+        
+        https://en.seedfinder.eu/api/json/strain/
+        """
+
         strain_info = self.strainInfo(strain_id, breeder_id, show_hybrids=True)
         hybrids = strain_info['hybrids']
         if hybrids == False:
@@ -84,11 +105,21 @@ class SeedFinder:
         return [hybrids] + progeny
 
     def breederInfo(self, breeder_id, show_strains=True):
+        """Get all strains developed by a given breeder.
+        
+        https://en.seedfinder.eu/api/json/ids/
+        """
+
         strains = '1' if show_strains else '0'
         url = '{}?br={}&strains={}'.format(self.breeders_api, breeder_id, strains)
         return self._get(url)
 
     def thread(self, forum, thread):
+        """Get all strains for the selected thread and connected threads
+        
+        https://en.seedfinder.eu/api/json/threadfinder/
+        """
+
         thread = str(thread)
         url = '{}?forum={}&thread={}'.format(self.thread_api, forum, thread)
         return self._get(url)
@@ -98,9 +129,3 @@ class SeedFinder:
         response = requests.get(url)
         data = response.json()
         return data
-
-def main():
-    pass
-
-if __name__ == "__main__":
-    main()
