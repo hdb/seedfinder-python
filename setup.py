@@ -15,7 +15,12 @@ setup(
     author_email = 'hudsondiggsbailey@gmail.com',
     url="https://github.com/hdb/seedfinder-python",
     packages = ['seedfinder'],
-    install_requires = ['requests'],
+    install_requires = [
+        'requests',
+        'rich>=12.3.0',
+        'python-dotenv>=0.18.0',
+        'beautifulsoup4>=4.11.1',
+    ],
     license='MIT',
     classifiers=(
         "Programming Language :: Python :: 3",
