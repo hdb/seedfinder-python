@@ -5,6 +5,9 @@ seedfinder-python can be used as a library or CLI
 ## CLI
 
 ```bash
+# first set your API key using the SF_API_KEY environment variable
+export SF_API_KEY=YOUR_API_KEY
+
 seedfinder --limit 10 --not-interactive "granddaddy"
 ```
 

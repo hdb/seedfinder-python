@@ -98,9 +98,14 @@ def parse() -> argparse.Namespace:
     return parser.parse_args()
 
 def main():
-    load_dotenv()
     args = parse()
-    sf = SeedFinder(os.getenv('SF_API_KEY'))
+    load_dotenv()
+    api_key = os.getenv('SF_API_KEY')
+    if api_key is None:
+        help_url = 'https://en.seedfinder.eu/userarea/action/jsonapi.html'
+        print(f'\n[red]No API key found.[/] Set the environment variable "SF_API_KEY" to your seedfinder.eu API key.\nSee {help_url} for more information\n')
+        exit()
+    sf = SeedFinder(api_key)
     query = ' '.join(args.query)
     interactive = args.not_interactive
     search(sf, query, limit=args.limit, print_results=True, interactive=interactive)
