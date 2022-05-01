@@ -14,4 +14,5 @@ Simple Python wrapper for `seedfinder.eu`_'s API.
 
    setup.md
    seedfinder
+   cli
    usage.md

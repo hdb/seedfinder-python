@@ -1,5 +1,15 @@
 # Example Usage
 
+seedfinder-python can be used as a library or CLI
+
+## CLI
+
+```bash
+seedfinder --limit 10 --not-interactive "granddaddy"
+```
+
+## Library Usage
+
 Initialize the API object
 
 ```python

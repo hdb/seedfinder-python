@@ -17,6 +17,8 @@ warnings.filterwarnings("ignore", category=UserWarning, module='bs4', message='.
 
 
 def search(sf, query: str, limit: int = 5, print_results: bool = False, interactive: bool = False) -> None | list[dict]:
+    """Make search query and request input"""
+
     search_results = sf.searchStrain(query)['strains']
     search_results_list = rank_results([v for k,v in search_results.items()], query, key='name')
 
@@ -31,6 +33,8 @@ def search(sf, query: str, limit: int = 5, print_results: bool = False, interact
         input_handler(sf, search_results_list, limit)
 
 def input_handler(sf, results: list[dict], limit: int, page: int = 1) -> None:
+    """Process user input"""
+
     detailed = get_details(sf, results, limit, page)
     print_results(detailed)
     print(Text('Enter "n" to get next page or "q" to quit:\n', style='magenta bold'))
@@ -46,12 +50,15 @@ def input_handler(sf, results: list[dict], limit: int, page: int = 1) -> None:
         exit()
 
 def get_details(sf, results: list[dict], limit: int, page: int = 1) -> list[dict]:
+    """Return strain result details"""
+
     idx_start = (page - 1) * limit
     idx_end = page * limit
     detailed_results = [sf.strainInfo(v['id'], v['brid'], show_parents=True) for v in results[idx_start:idx_end]]
     return detailed_results
 
 def print_results(results: list[dict]) -> None:
+    """Print results to terminal"""
 
     for i, v in enumerate(results):
         parents_str = v['parents']['info']
@@ -70,6 +77,8 @@ def print_results(results: list[dict]) -> None:
         )
 
 def clean_description(text: str) -> str:
+    """Parse strain description html as text"""
+
     text = BeautifulSoup(text, 'html.parser').text.replace('<br />','\n').replace('&quot;','"').rstrip()
     return text
 
@@ -77,6 +86,8 @@ def rank_results(search_results: list[dict], search: str, key: str) -> list[dict
     return sorted(search_results, key=lambda z: SequenceMatcher(None, z[key], search).ratio(), reverse=True)
 
 def parse() -> argparse.Namespace:
+    """Parse command line arguments"""
+
     parser = argparse.ArgumentParser(description='Search strain on seedfinder')
     parser.add_argument('query', nargs='+',
                         help='search query')
