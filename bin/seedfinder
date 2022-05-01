@@ -1,0 +1,2 @@
+from seedfinder.cli import main
+main()
