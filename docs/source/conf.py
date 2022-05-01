@@ -24,8 +24,8 @@ copyright = '2022'
 author = 'Hudson Bailey'
 
 # The full version, including alpha/beta/rc tags
-release = '0.1'
-
+from seedfinder.version import __version__
+release = __version__
 
 # -- General configuration ---------------------------------------------------
 
